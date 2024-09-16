@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
 import { fetchUsers, setFilter } from '../redux/userSlice';
-import './UserTable.css'; // Import the CSS file
+import '../App.css'; // Import the CSS file
 
 const UserTable: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
