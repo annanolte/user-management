@@ -9,18 +9,30 @@ interface User {
   phone: string;
 }
 
+interface Filters {
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+}
+
 interface UserState {
   users: User[];
-  filteredUsers: User[];
-  loading: boolean;
+  status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  filters: Filters;
 }
 
 const initialState: UserState = {
   users: [],
-  filteredUsers: [],
-  loading: false,
+  status: "idle",
   error: null,
+  filters: {
+    name: "",
+    username: "",
+    email: "",
+    phone: "",
+  },
 };
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
@@ -32,32 +44,30 @@ const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    filterUsers: (state, action: PayloadAction<string>) => {
-      const searchText = action.payload.toLowerCase();
-      state.filteredUsers = state.users.filter(
-        (user) =>
-          user.name.toLowerCase().includes(searchText) ||
-          user.username.toLowerCase().includes(searchText) ||
-          user.email.toLowerCase().includes(searchText) ||
-          user.phone.toLowerCase().includes(searchText)
-      );
+    setFilter: (
+      state,
+      action: PayloadAction<{ key: keyof Filters; value: string }>
+    ) => {
+      const { key, value } = action.payload;
+      state.filters[key] = value;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUsers.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      state.loading = false;
-      state.users = action.payload;
-      state.filteredUsers = action.payload;
-    });
-    builder.addCase(fetchUsers.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message || "Failed to fetch users";
-    });
+    builder
+      .addCase(fetchUsers.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.users = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? null;
+      });
   },
 });
 
-export const { filterUsers } = userSlice.actions;
+export const { setFilter } = userSlice.actions;
+
 export default userSlice.reducer;
