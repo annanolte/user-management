@@ -18,6 +18,7 @@ td {
 th {
   color: #4f4f4f;
   font-size: 1.2rem;
+  background-color: #e8f1f0;
 }
 
 input {
@@ -74,31 +75,65 @@ tr:hover {
   background-color: #e0f2f1;
 }
 
+/* Mobile view */
 @media screen and (max-width: 768px) {
-  table,
+  .table-container {
+    width: 100%;
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border: 0;
+  }
+
   th,
   td {
     display: block;
     width: 100%;
-  }
-
-  th,
-  td {
+    box-sizing: border-box;
     padding: 12px;
+    text-align: left;
   }
 
   th {
-    color: #333;
+    background-color: #f5f5f5;
     font-size: 1rem;
-  }
-
-  input[type="text"] {
-    width: 100%;
+    font-weight: bold;
   }
 
   tr {
+    display: block;
     margin-bottom: 15px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #84e4dc;
+    border-top: 2px solid #84e4dc;
+  }
+
+  td {
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    background-color: #fff;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: calc(100% - 20px);
+    padding-left: 10px;
+    font-weight: bold;
+    background-color: #f5f5f5;
+    box-sizing: border-box;
+  }
+
+  input[type="text"] {
+    width: calc(100% - 32px);
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 8px;
   }
 }
 
