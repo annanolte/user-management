@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../redux/store';
-import { fetchUsers, setFilter } from '../redux/userSlice';
-import '../App.css'; // Import the CSS file
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../redux/store";
+import { fetchUsers, setFilter } from "../redux/userSlice";
+import "../App.css";
 
 const UserTable: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,7 +36,7 @@ const UserTable: React.FC = () => {
               <input
                 type="text"
                 value={filters.name}
-                onChange={(e) => handleFilterChange('name', e.target.value)}
+                onChange={(e) => handleFilterChange("name", e.target.value)}
                 placeholder="Search by name"
               />
             </th>
@@ -45,7 +45,7 @@ const UserTable: React.FC = () => {
               <input
                 type="text"
                 value={filters.username}
-                onChange={(e) => handleFilterChange('username', e.target.value)}
+                onChange={(e) => handleFilterChange("username", e.target.value)}
                 placeholder="Search by username"
               />
             </th>
@@ -54,7 +54,7 @@ const UserTable: React.FC = () => {
               <input
                 type="text"
                 value={filters.email}
-                onChange={(e) => handleFilterChange('email', e.target.value)}
+                onChange={(e) => handleFilterChange("email", e.target.value)}
                 placeholder="Search by email"
               />
             </th>
@@ -63,7 +63,7 @@ const UserTable: React.FC = () => {
               <input
                 type="text"
                 value={filters.phone}
-                onChange={(e) => handleFilterChange('phone', e.target.value)}
+                onChange={(e) => handleFilterChange("phone", e.target.value)}
                 placeholder="Search by phone"
               />
             </th>
